@@ -1,128 +1,90 @@
-# 🚀 RocketLog
+<div align="center">
+  <h1>RocketLog</h1>
 
-RESTful API for **package delivery management**, developed with **Node.js, TypeScript and Prisma**, focusing on **clean architecture, authentication, data consistency and scalability**.
+  <p>
+    API REST para gerenciamento de entregas de encomendas
+  </p>
 
-This project simulates a real-world delivery system, handling users, deliveries and delivery logs with role-based access and secure authentication.
-
----
-
-## 📋 Overview
-
-**RocketLog** is a backend application designed to manage package deliveries, allowing:
-
-- user registration and authentication
-- creation and tracking of deliveries
-- delivery status updates
-- detailed delivery logs
-- role-based access control (customer / seller)
-
-The project emphasizes **API design**, **business rules**, **database modeling**, and **modern backend practices**.
+  <p>
+    <a href="#️-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#-estrutura">Estrutura</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#-api">API</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#️-configuração">Configuração</a>
+  </p>
+</div>
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Tecnologias
 
-- **Node.js** — JavaScript runtime
-- **TypeScript** — Static typing and code safety
-- **Express.js** — REST API framework
-- **Prisma ORM** — Database access and schema management
-- **PostgreSQL** — Relational database
-- **JWT** — Authentication and authorization
-- **bcrypt** — Password hashing
-- **Zod** — Request data validation
-- **Jest** — Unit testing
-- **Docker** — Containerized database environment
-
----
-
-## 🏗️ Project Structure
-
-The application follows a modular and organized structure, separating responsibilities clearly:
-
-```
-rocketlog/
-├── src/
-│   ├── controllers/          # Request handling and business logic
-│   ├── middlewares/          # Authentication and error handling
-│   ├── routes/               # API route definitions
-│   ├── database/             # Database connection
-│   ├── configs/              # Application configurations (auth)
-│   ├── utils/                # Shared utilities (AppError)
-│   ├── tests/                # Unit tests
-│   ├── app.ts                # Express app configuration
-│   └── server.ts             # HTTP server bootstrap
-├── prisma/
-│   ├── schema.prisma         # Database schema
-│   └── migrations/           # Database migrations
-├── types/                    # Shared TypeScript types
-├── docker-compose.yml        # Docker services configuration
-└── package.json              # Project dependencies and scripts
-```
+- Node.js
+- TypeScript
+- Express
+- Prisma ORM
+- PostgreSQL
+- JWT
+- bcrypt
+- Zod
+- Jest
+- Docker
 
 ---
 
-## 🚀 Running the Project
+## 💡 Projeto
 
-### Prerequisites
+O **RocketLog** é uma API REST para gerenciamento de entregas de encomendas, desenvolvida para simular um sistema real de logística. A aplicação permite o controle de usuários, pedidos de entrega e o acompanhamento completo do fluxo de uma encomenda, desde sua criação até o registro de eventos que indicam seu progresso.
 
-- Node.js **18+**
-- Docker & Docker Compose
-- npm or yarn
+O projeto foi construído com foco em **arquitetura backend, segurança e consistência de dados**, utilizando autenticação baseada em JWT, modelagem relacional com PostgreSQL e regras de negócio bem definidas para refletir cenários reais de sistemas de entrega.
 
----
+### Funcionalidades
 
-### 1. Clone the repository
+- Cadastro e autenticação de usuários
+- Criação e acompanhamento de entregas
+- Atualização de status da entrega
+- Registro de logs de cada etapa da entrega
+- Controle de acesso por tipo de usuário (cliente e vendedor)
 
-```bash
-git clone <repository-url>
-cd rocketlog
-```
+### Aplicação
 
-### 2. Install dependencies
-
-```bash
-npm install
-```
-
-### 3. Environment variables
-
-Create a `.env` file:
-
-```
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/rocketlog"
-JWT_SECRET="your-secret-key-here"
-PORT=3333
-```
-
-### 4. Start PostgreSQL with Docker
-
-```bash
-docker-compose up -d
-```
-
-### 5. Run database migrations
-
-```bash
-npx prisma migrate dev
-```
-
-### 6. Start the server
-
-```bash
-npm run dev
-```
-
-Server available at:
-
-`http://localhost:3333`
+- API REST com Express e TypeScript
+- Autenticação e autorização com JWT
+- Persistência de dados com Prisma e PostgreSQL
+- Validação de dados com Zod
+- Tratamento centralizado de erros
+- Testes automatizados com Jest
+- Separação de camadas (rotas, controllers, middlewares)
 
 ---
 
-## 📚 API Endpoints
+## 📁 Estrutura
 
-### 🔐 Authentication
+```
+src/
+├── configs/           # Configurações (auth)
+├── controllers/       # Regras de negócio
+├── database/          # Conexão com o banco
+├── middlewares/       # Autenticação e erros
+├── routes/            # Rotas da API
+├── tests/             # Testes unitários
+├── utils/             # Utilitários (AppError)
+├── app.ts             # Configuração do Express
+└── server.ts          # Inicialização do servidor
 
-**POST `/sessions`** — Create a user session (login)
+prisma/
+├── schema.prisma
+└── migrations/
+
+docker-compose.yml
+```
+
+---
+
+## 🌐 API
+
+### Autenticação
+
+`POST /sessions`
 
 ```json
 {
@@ -133,9 +95,9 @@ Server available at:
 
 ---
 
-### 👤 Users
+### Usuários
 
-**POST `/users`** — Create a new user
+`POST /users`
 
 ```json
 {
@@ -147,9 +109,9 @@ Server available at:
 
 ---
 
-### 📦 Deliveries
+### Entregas
 
-**POST `/deliveries`** — Create a delivery (authenticated)
+`POST /deliveries`
 
 ```json
 {
@@ -157,9 +119,9 @@ Server available at:
 }
 ```
 
-**GET `/deliveries`** — List authenticated user deliveries
+`GET /deliveries`
 
-**PUT `/deliveries/:id/status`** — Update delivery status
+`PUT /deliveries/:id/status`
 
 ```json
 {
@@ -169,9 +131,9 @@ Server available at:
 
 ---
 
-### 📝 Delivery Logs
+### Logs de Entrega
 
-**POST `/delivery-logs`** — Create a delivery log entry
+`POST /delivery-logs`
 
 ```json
 {
@@ -180,48 +142,72 @@ Server available at:
 }
 ```
 
-**GET `/delivery-logs/:deliveryId`** — List delivery logs
+`GET /delivery-logs/:deliveryId`
 
 ---
 
-## 🧪 Tests
+## ⚙️ Configuração
+
+### 1. Instalar dependências
 
 ```bash
-npm test        # run all tests
-npm run test:dev # watch mode
+npm install
 ```
 
----
+### 2. Configurar variáveis de ambiente
 
-## 🔧 Useful Scripts
+Crie um arquivo `.env`:
 
-- `npm run dev` — Development server
-- `npm run test:dev` — Tests in watch mode
-- `npx prisma studio` — Visual database management
-- `npx prisma migrate dev` — Run migrations
-- `npx prisma generate` — Generate Prisma client
+```
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/rocketlog"
+JWT_SECRET="your-secret-key-here"
+PORT=3333
+```
 
----
-
-## 🐳 Docker
-
-This project uses Docker to provide a local PostgreSQL environment:
+### 3. Iniciar o banco com Docker
 
 ```bash
 docker-compose up -d
 ```
 
+### 4. Executar as migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### 5. Iniciar o servidor
+
+```bash
+npm run dev
+```
+
+Será iniciada em:
+
+```
+http://localhost:3333
+```
+
+### 📦 Build para produção
+
+Para gerar a versão otimizada:
+
+```bash
+npm run build
+```
+
+Os arquivos finais serão gerados na pasta `build/`.
+
+Para executar a versão de produção localmente:
+
+```bash
+npm start
+```
+
 ---
 
-## 📝 Key Features
+## 👨‍💻 Créditos
 
-- JWT-based authentication
-- Secure password hashing
-- Role-based access (customer / seller)
-- Delivery and delivery log management
-- Centralized error handling
-- Input validation with Zod
-- Database migrations with Prisma
-- Unit testing with Jest
+Thales Amaral Lima
 
----
+Aplicação desenvolvida na Formação Fullstack da Rocketseat.
